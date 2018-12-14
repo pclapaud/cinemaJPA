@@ -1,6 +1,7 @@
 package fr.laerce.cinema.dao;
 
-import fr.laerce.cinema.model.Persons;
+import fr.laerce.cinema.model.Film;
+import fr.laerce.cinema.model.Personne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,30 +10,28 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigInteger;
 import java.util.List;
-
 @Component
-public class PersonsDao {
-
+public class FilmDao {
     @Autowired
     private EntityManager entityManager;
 
     @Transactional
-    public void save(Persons p){
-        entityManager.persist(p);
+    public void save(Film f){
+        entityManager.persist(f);
     }
 
-    public List<Persons> getAll(){
-        Query query = entityManager.createQuery("Select p from Persons p");
+    public List<Film> getAll(){
+        Query query = entityManager.createQuery("Select f from Film f");
         return query.getResultList();
     }
 
-    public Persons getById(BigInteger id){
-        Persons retVal = null;
-        Query query = entityManager.createQuery("select p from Persons p where p.id = :id");
+    public Film getById(BigInteger id){
+        Film retVal = null;
+        Query query = entityManager.createQuery("select f from Film where f.id = :id");
         query.setParameter("id", id);
-        List<Persons> persons = query.getResultList();
-        if(!persons.isEmpty()){
-            retVal = persons.get(0);
+        List<Film> films = query.getResultList();
+        if(!films.isEmpty()){
+            retVal = films.get(0);
         }
         return retVal;
     }

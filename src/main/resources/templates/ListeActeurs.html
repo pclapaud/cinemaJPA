@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:each="acteur:${acteurs}"th:href="'detailActeur/'+${acteur.id}">
+    <li th:text="${acteur.nom}"></li>
+</a>
+<form method="get" action="/creation">
+    <label  for="1">nom</label><input id="1" type="text" name="nom">
+    <label for="2">prenom</label><input id="2" type="text" name="prenom">
+    <label for="3">naissance</label><input id="3" type="number" name="naissance">
+    <input type="submit">
+</form>
+</body>
+</html>

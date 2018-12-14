@@ -1,0 +1,48 @@
+<!DOCTYPE "HTML">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="fragment/header.html :: header-css"></div>
+</head>
+<body>
+<nav th:replace="fragment/header.html :: menu"></nav>
+<table border="1px" style="width:70%">
+    <tr ><td colspan="2" th:text="'Acteur : '+${Personne.getNom()}+${Personne.getPrenom()}"></td></tr>
+    <tr>
+        <td><img width="200px" HEIGHT="200px" th:src="'/images/personnes/'+${Personne.getPhotoPath()}"></td>
+
+
+        <th th:text="'date de naissance : '+${Personne.getNaissance()}"></th>
+    </tr>
+
+<tr>
+    <td colspan="2">Les films</td>
+</tr>
+    <tr>
+    <td colspan="2">
+<!--<a th:each="roleur , iter:${Personne.getRoles()}"th:href="'/detailFilm/'+${roleur.getFilm().getTitre()}">-->
+
+    <!--<li th:text="${Personne.getRoles().get(iter.index).getRole()}+' dans le film '+${roleur.getFilm().getTitre()}"></li>-->
+
+
+<!--</a>-->
+    </td>
+</tr>
+
+</table>
+<form method="get" action="/modification">
+    <input hidden type="text" name="id" th:value="${Personne.id}">
+    <label th:text="${Personne.getNom()}" for="1"></label><input id="1" type="text" name="nom">
+    <label th:text="${Personne.getPrenom()}" for="2"></label><input id="2" type="text" name="prenom">
+    <label th:text="${Personne.getNaissance()}" for="3"></label><input id="3" type="number" name="naissance">
+    <input type="submit" value="MOD">
+</form>
+<form method="get" action="/suprimer">
+    <input hidden type="text" name="id" th:value="${Personne.id}">
+    <input type="submit" value="SUP">
+</form>
+
+<div th:replace="fragment/footer.html::footer"/>
+</body>
+</html>
