@@ -5,19 +5,17 @@
 <nav th:replace="fragment/header.html :: menu"></nav>
 <h1 th:text="'Bonjour : '+${nom}">HELLO</h1>
 <ul>
-    <a th:each="film:${films}"th:href="'detailFilm/'+${film.titre}">
-        <li th:text="${film.titre}"></li>
+    <a th:each="film:${films}"th:href="'detailFilm/'+${film.getId()}">
+        <li th:text="${film.getTitle()}"></li>
     </a>
 
 
 </ul>
-<form  method="get" action="/recherche">
-    <input  type="text" name="test">
-    <button action="/recherche" type="submit">Search</button>
-</form>
+<!--<form  method="get" action="/recherche">-->
+    <!--<input  type="text" name="test">-->
+    <!--<button action="/recherche" type="submit">Search</button>-->
+<!--</form>-->
 <div th:replace="fragment/footer.html::footer"/>
 </body>
 </html>
-<!--<a th:each="film:${films}"th:href="'detail/'${film.id}"><li th:text="${film.titre}"></li>-->
-    <!--Le Grand Film :-->
-<!--</a>-->
+

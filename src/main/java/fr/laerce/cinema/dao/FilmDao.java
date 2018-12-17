@@ -25,14 +25,22 @@ public class FilmDao {
         return query.getResultList();
     }
 
-    public Film getById(BigInteger id){
+    public Film getById(long id){
         Film retVal = null;
-        Query query = entityManager.createQuery("select f from Film where f.id = :id");
+        Query query = entityManager.createQuery("select f from Film f where f.id = :id");
         query.setParameter("id", id);
         List<Film> films = query.getResultList();
         if(!films.isEmpty()){
             retVal = films.get(0);
         }
         return retVal;
+    }
+    public String getFilename(){
+        Query query = entityManager.createQuery("Select max(f.imagePath) from Film f");
+        String filename = (String)query.getResultList().get(0);
+        filename = filename.substring(1);
+        int tempo = Integer.parseInt(filename.substring(0,filename.lastIndexOf('.')))+1;
+
+        return "f"+tempo+".jpg";
     }
 }

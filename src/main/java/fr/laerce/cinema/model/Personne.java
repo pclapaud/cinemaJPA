@@ -15,6 +15,7 @@ public class Personne {
     private String prenom;
     private Integer naissance;
     private String photoPath;
+    private List<Film> lesfilms;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,10 +63,18 @@ public class Personne {
     public String getPhotoPath() {
         return photoPath;
     }
-
     public void setPhotoPath(String imagePath) {
         this.photoPath = imagePath;
     }
+
+    @OneToMany(mappedBy = "realisateur")
+    public List<Film> getLesfilms() {
+        return lesfilms;
+    }
+    public void setLesfilms(List<Film> lesfilms) {
+        this.lesfilms = lesfilms;
+    }
+
 
     @Override
     public boolean equals(Object o) {

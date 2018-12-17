@@ -8,28 +8,37 @@
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
 <table border="1px" style="width:70%">
-    <tr ><td colspan="3" th:text="'Film : '+${film.titre}"></td></tr>
+    <tr ><td colspan="3" th:text="'Film : '+${film.getTitle()}"></td></tr>
     <tr>
-    <td><img width="200px" HEIGHT="200px" th:src="'/images/affiches/'+${film.getAffiche()}"></td>
+    <td><img width="200px" HEIGHT="200px" th:src="'/images/affiches/'+${film.getImagePath()}"></td>
 
-    <th th:text="'la note du film : '+${film.getNotation()}"></th>
+    <th th:text="'la note du film : '+${film.getRating()}"></th>
 
-    <th th:text="'resumer : '+${film.getResume()}"></th>
+    <th th:text="'resumer : '+${film.getSummary()}"></th>
     </tr>
     <tr><td colspan="3">Les acteurs</td></tr>
     <tr><td colspan="3">
 
-    <a th:each="roleur:${film.getRoles()}"th:href="'/detailsActeur/'+${roleur.getActeur().getNom()}">
+    <!--<a th:each="roleur:${film.getRoles()}"th:href="'/detailActeur/'+${roleur.getActeur().getNom()}">-->
 
-<ul>
-    <img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${roleur.getActeur().getPhotoPath()}">
-    <li th:text="${roleur.getActeur().getNom()}"></li>
-            <span th:text="${roleur.getActeur().getPrenom()}"></span>
+<!--<ul>-->
+    <!--<img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${roleur.getActeur().getPhotoPath()}">-->
+    <!--<li th:text="${roleur.getActeur().getNom()}"></li>-->
+            <!--<span th:text="${roleur.getActeur().getPrenom()}"></span>-->
 
-</ul>
-    </a>
+<!--</ul>-->
+    <!--</a>-->
     </td>
     </tr>
+    <tr><td colspan="3">Réalisateur</td></tr>
+    <tr><td colspan="3">
+        <a th:href="'/detailActeur/'+${film.getRealisateur().getId()}">
+            <ul>
+                <img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${film.getRealisateur().getPhotoPath()}">
+                <li th:text="${film.getRealisateur().getNom()+'   '+film.getRealisateur().getPrenom()}"></li>
+            </ul>
+        </a>
+    </td>
 </table>
 <div th:replace="fragment/footer.html::footer"/>
 </body>

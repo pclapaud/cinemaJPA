@@ -33,9 +33,9 @@
 </table>
 <form method="get" action="/modification">
     <input hidden type="text" name="id" th:value="${Personne.id}">
-    <label th:text="${Personne.getNom()}" for="1"></label><input id="1" type="text" name="nom">
-    <label th:text="${Personne.getPrenom()}" for="2"></label><input id="2" type="text" name="prenom">
-    <label th:text="${Personne.getNaissance()}" for="3"></label><input id="3" type="number" name="naissance">
+    <label  for="1"></label><input th:value="${Personne.getNom()}" id="1" type="text" name="nom">
+    <label  for="2"></label><input th:value="${Personne.getPrenom()}" id="2" type="text" name="prenom">
+    <label  for="3"></label><input th:value="${Personne.getNaissance()}" id="3" type="number" name="naissance">
     <input type="submit" value="MOD">
 </form>
 <form method="get" action="/suprimer">

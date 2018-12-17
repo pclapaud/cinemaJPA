@@ -14,7 +14,7 @@ public class Film {
     private Double rating;
     private String imagePath;
     private String summary;
-    private Integer idRealisateur;
+    private Personne realisateur;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,13 +65,14 @@ public class Film {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-    @Basic
-    @Column(name = "film_director", nullable = true)
-    public Integer getIdRealisateur() {
-        return idRealisateur;
+
+    @ManyToOne
+    @JoinColumn(name = "film_director")
+    public Personne getRealisateur() {
+        return realisateur;
     }
-    public void setIdRealisateur(Integer idRealisateur) {
-        this.idRealisateur = idRealisateur;
+    public void setRealisateur(Personne realisateur) {
+        this.realisateur = realisateur;
     }
 
     @Override
@@ -84,11 +85,11 @@ public class Film {
                 Objects.equals(getRating(), film.getRating()) &&
                 Objects.equals(getImagePath(), film.getImagePath()) &&
                 Objects.equals(getSummary(), film.getSummary()) &&
-                Objects.equals(getIdRealisateur(), film.getIdRealisateur());
+                Objects.equals(getRealisateur(), film.getRealisateur());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getIdRealisateur());
+        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getRealisateur());
     }
 }

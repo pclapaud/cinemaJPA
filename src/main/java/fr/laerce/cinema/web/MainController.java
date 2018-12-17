@@ -4,6 +4,7 @@ package fr.laerce.cinema.web;//package fr.laerce.cinemav2springbbot.web;
 
 import fr.laerce.cinema.dao.FilmDao;
 import fr.laerce.cinema.dao.PersonneDao;
+import fr.laerce.cinema.model.Film;
 import fr.laerce.cinema.model.Personne;
 import net.bytebuddy.asm.Advice;
 import org.apache.commons.io.IOUtils;
@@ -31,32 +32,34 @@ public class MainController {
     @Autowired
     public PersonneDao personneDao;
     @Autowired
-    FilmDao filmDaoo;
+    FilmDao filmDao;
 
-//    @GetMapping("/")
-//    public String main(Model model){
-//
-//        model.addAttribute("nom","Patrick");
-//        model.addAttribute("films", dataModel.getFilms());
-//        return "index";
-//    }
-@GetMapping("/")
+    @GetMapping("/")
     public String main(Model model){
+
+        model.addAttribute("nom","Patrick");
+        model.addAttribute("films", filmDao.getAll());
+        return "index";
+    }
+@GetMapping("/acteurs")
+    public String main3(Model model){
     model.addAttribute("acteurs",personneDao.getAll());
     return "ListeActeurs";
 }
     @GetMapping("/films")
     public String main2(Model model){
-        model.addAttribute("films",filmDaoo.getAll());
+        model.addAttribute("films",filmDao.getAll());
+        model.addAttribute("persons",personneDao.getAll());
+        model.addAttribute("Film", new Film());
         return "ListeFilms";
     }
 
-//    @GetMapping("/detailFilm/{id}")
-//    public String detailFilm(Model model, @PathVariable("id")String titrefilm){
-//        model.addAttribute("film", dataModel.getFilm(titrefilm));
-//        return "detailsFilm";
-//    }
-//
+    @GetMapping("/detailFilm/{id}")
+    public String detailFilm(Model model, @PathVariable("id")long id){
+        model.addAttribute("film", filmDao.getById(id));
+        return "detailsFilm";
+    }
+
     @GetMapping("/detailActeur/{id}")
     public String detailActeur(Model model, @PathVariable("id") BigInteger id){
 
