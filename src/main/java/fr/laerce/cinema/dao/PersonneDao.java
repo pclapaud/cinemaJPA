@@ -22,7 +22,7 @@ public class PersonneDao {
         entityManager.persist(p);
     }
     @Transactional
-    public void remove(BigInteger id){
+    public void remove(Long id){
         entityManager.remove(getById(id));
 //        Query query = entityManager.createQuery("delete from Personne p where p.id = :id");
 //        query.setParameter("id", id);
@@ -34,7 +34,7 @@ public class PersonneDao {
         return query.getResultList();
     }
 
-    public Personne getById(BigInteger id){
+    public Personne getById(Long id){
         Personne retVal = null;
         Query query = entityManager.createQuery("select p from Personne p where p.id = :id");
         query.setParameter("id", id);

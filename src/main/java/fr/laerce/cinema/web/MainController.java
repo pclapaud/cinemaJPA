@@ -61,7 +61,7 @@ public class MainController {
     }
 
     @GetMapping("/detailActeur/{id}")
-    public String detailActeur(Model model, @PathVariable("id") BigInteger id){
+    public String detailActeur(Model model, @PathVariable("id") Long id){
 
         model.addAttribute("Personne", personneDao.getById(id));
         return "detailsActeur";
@@ -76,7 +76,7 @@ public class MainController {
         return "redirect:/";
     }
     @GetMapping("/modification")
-    public String supacteur(@ModelAttribute("id")BigInteger id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")Integer naissance,@ModelAttribute("photoPath")String photoPath){
+    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")Integer naissance,@ModelAttribute("photoPath")String photoPath){
         Personne person = personneDao.getById(id);
         person.setNom(nom);
         person.setPrenom(prenom);
@@ -85,7 +85,7 @@ public class MainController {
         return "redirect:/";
     }
     @GetMapping("/suprimer")
-    public String supacteur(@ModelAttribute("id")BigInteger id){
+    public String supacteur(@ModelAttribute("id")Long id){
 
         personneDao.remove(id);
         return "redirect:/";

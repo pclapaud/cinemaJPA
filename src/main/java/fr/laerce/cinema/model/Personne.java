@@ -10,7 +10,7 @@ import java.util.Objects;
 //si le nom de la table est diff que la class
 @Table(name="persons")
 public class Personne {
-    private BigInteger id;
+    private Long id;
     private String nom;
     private String prenom;
     private Integer naissance;
@@ -20,11 +20,11 @@ public class Personne {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,10 +84,7 @@ public class Personne {
         Personne persons = (Personne) o;
 
         if (id != persons.id) return false;
-        if (nom != null ? !nom.equals(persons.nom) : persons.nom != null) return false;
-        if (prenom != null ? !prenom.equals(persons.prenom) : persons.prenom != null) return false;
-        if (naissance != null ? !naissance.equals(persons.naissance) : persons.naissance != null) return false;
-        if (photoPath != null ? !photoPath.equals(persons.photoPath) : persons.photoPath != null) return false;
+
 
         return true;
     }

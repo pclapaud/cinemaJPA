@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<div th:replace="fragment/header.html :: header-css"></div>
 <body>
+<nav th:replace="fragment/header.html :: menu"></nav>
 <ul th:each="film:${films}"th:href="'detailFilm/'+${film.id}">
     <li th:text="${film.title}"></li>
 </ul>
@@ -14,12 +12,14 @@
     <p>note : <input type="text" th:field="*{rating}"/></p>
     <P>image : <input name="file" type="file"></P>
     <p>sommaire : <input type="text" th:field="*{summary}"/></p>
-    <p>Réalisateur : <input name="realisateur" list="names" th:field="${persons.get(0).getNom()}">
+    <p>Réalisateur : <input name="realisateur" list="names" th:field="*{realisateur}" >
         <datalist id="names">
-            <option th:each="person : ${persons}" th:value="${person.getId()}" th:label="${person.getNom()+'    '+person.getPrenom()}">
+            <select>
+                <option th:each="person : ${persons}" th:value="${person}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+            </select>
         </datalist></p>
     <input type="submit" value="Valider" />
 </form>
-
+<div th:replace="fragment/footer.html::footer"/>
 </body>
 </html>

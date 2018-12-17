@@ -46,6 +46,8 @@ public class FilmController {
     @GetMapping("/")
     public String main2(Model model){
         model.addAttribute("films",filmDao.getAll());
+        model.addAttribute("persons",personneDao.getAll());
+        model.addAttribute("Film", new Film());
         return "ListeFilms";
     }
 
@@ -56,14 +58,13 @@ public class FilmController {
     }
     //@RequestMapping(value=("/creation"),headers=("content-type=multipart/*"),method=RequestMethod.POST)
    @PostMapping("/creation")
-    public String modacteur(@Valid Film film,@RequestParam("realisateur") BigInteger rea, @RequestParam("file") MultipartFile file){
+    public String modacteur(@Valid Film film, @RequestParam("file") MultipartFile file){
         try {
             String filename = filmDao.getFilename();
             byte[] bytes = file.getBytes();
             Path path = Paths.get("src/main/resources/images/affiches/" + filename);
             Files.write(path, bytes);
             film.setImagePath(filename);
-            film.setRealisateur(personneDao.getById(rea));
             filmDao.save(film);
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,4 +72,3 @@ public class FilmController {
         return "redirect:/films";
     }
 }
-
