@@ -7,6 +7,7 @@ import fr.laerce.cinema.dao.PersonneDao;
 import fr.laerce.cinema.model.Film;
 import fr.laerce.cinema.model.Personne;
 import net.bytebuddy.asm.Advice;
+import org.apache.catalina.connector.Request;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,13 +59,20 @@ public class FilmController {
     }
     //@RequestMapping(value=("/creation"),headers=("content-type=multipart/*"),method=RequestMethod.POST)
    @PostMapping("/creation")
-    public String modacteur(@Valid Film film, @RequestParam("file") MultipartFile file){
+    public String modacteur(@RequestParam("titre") String titre ,@RequestParam("realisateur") Long realisateur ,@RequestParam("note") double note ,@RequestParam("sommaire") String sommaire , @RequestParam("file") MultipartFile file){
         try {
+
             String filename = filmDao.getFilename();
+            Film film = new Film();
             byte[] bytes = file.getBytes();
             Path path = Paths.get("src/main/resources/images/affiches/" + filename);
             Files.write(path, bytes);
+            film.setSummary(sommaire);
+            film.setTitle(titre);
+            film.setRating(note);
             film.setImagePath(filename);
+            Personne per = personneDao.getById(realisateur);
+            film.setRealisateur(per);
             filmDao.save(film);
         } catch (IOException e) {
             e.printStackTrace();

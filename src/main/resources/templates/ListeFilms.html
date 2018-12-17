@@ -6,18 +6,17 @@
 <ul th:each="film:${films}"th:href="'detailFilm/'+${film.id}">
     <li th:text="${film.title}"></li>
 </ul>
-<form action="#" th:action="@{/film/creation}" th:object="${Film}" method="post" enctype="multipart/form-data">
-    <input type="hidden" th:field="*{id}"/>
-    <p>titre : <input type="text" th:field="*{title}"/></p>
-    <p>note : <input type="text" th:field="*{rating}"/></p>
-    <P>image : <input name="file" type="file"></P>
-    <p>sommaire : <input type="text" th:field="*{summary}"/></p>
-    <p>Réalisateur : <input name="realisateur" list="names" th:field="*{realisateur}" >
-        <datalist id="names">
-            <select>
-                <option th:each="person : ${persons}" th:value="${person}" th:text="${person.getNom()+'    '+person.getPrenom()}">
-            </select>
-        </datalist></p>
+<form action="#" th:action="@{/film/creation}" method="post" enctype="multipart/form-data">
+
+    <p>titre : <input name="titre" type="text" /></p>
+    <p>note : <input  name="note" type="number" /></p>
+    <P>image : <input  name="file" type="file"></P>
+    <p>sommaire : <input name="sommaire" type="text" /></p>
+    <p>Réalisateur :
+        <select name="realisateur">
+            <option th:each="person : ${persons}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+        </select>
+        </p>
     <input type="submit" value="Valider" />
 </form>
 <div th:replace="fragment/footer.html::footer"/>
