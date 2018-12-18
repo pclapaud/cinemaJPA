@@ -38,32 +38,32 @@ public class MainController {
     public String main(Model model){
 
         model.addAttribute("nom","Patrick");
-        model.addAttribute("films", filmDao.getAll());
+        model.addAttribute("films", filmDao.findAll());
         return "index";
     }
 @GetMapping("/acteurs")
     public String main3(Model model){
-    model.addAttribute("acteurs",personneDao.getAll());
+    model.addAttribute("acteurs",personneDao.findAll());
     return "ListeActeurs";
 }
     @GetMapping("/films")
     public String main2(Model model){
-        model.addAttribute("films",filmDao.getAll());
-        model.addAttribute("persons",personneDao.getAll());
+        model.addAttribute("films",filmDao.findAll());
+        model.addAttribute("persons",personneDao.findAll());
         model.addAttribute("Film", new Film());
         return "ListeFilms";
     }
 
     @GetMapping("/detailFilm/{id}")
     public String detailFilm(Model model, @PathVariable("id")long id){
-        model.addAttribute("film", filmDao.getById(id));
+        model.addAttribute("film", filmDao.findById(id).get());
         return "detailsFilm";
     }
 
     @GetMapping("/detailActeur/{id}")
     public String detailActeur(Model model, @PathVariable("id") Long id){
 
-        model.addAttribute("Personne", personneDao.getById(id));
+        model.addAttribute("Personne", personneDao.findById(id).get());
         return "detailsActeur";
     }
     @GetMapping("/creation")
@@ -77,7 +77,7 @@ public class MainController {
     }
     @GetMapping("/modification")
     public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")Integer naissance,@ModelAttribute("photoPath")String photoPath){
-        Personne person = personneDao.getById(id);
+        Personne person = personneDao.findById(id).get();
         person.setNom(nom);
         person.setPrenom(prenom);
         person.setNaissance(naissance);
@@ -87,18 +87,9 @@ public class MainController {
     @GetMapping("/suprimer")
     public String supacteur(@ModelAttribute("id")Long id){
 
-        personneDao.remove(id);
+        personneDao.deleteById(id);
         return "redirect:/";
     }
-//    @GetMapping("/recherche{test}")
-//    public String recherche(Model model, @PathVariable("test")String test){
-//
-//        model.addAttribute("film", dataModel.containsFilms(test));
-//        return "index";
-//
-//    }
-//
-//
     @RequestMapping(value = "/images/{dossier}/{id}")
     public ResponseEntity<byte[]> affiche(@PathVariable("id")String id,@PathVariable("dossier")String dossier) {
         try {

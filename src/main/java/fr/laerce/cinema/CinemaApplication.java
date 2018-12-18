@@ -34,25 +34,4 @@ public class CinemaApplication {
 //            }
 //        };
 //    }
-@Bean
-public CommandLineRunner runner(PersonneDao dao){
-    return new CommandLineRunner() {
-        @Override
-        @Transactional
-        public void run(String... args) throws Exception {
-//            List<Personne> Persons = dao.getAll();
-//            for (Personne f: Persons
-//            ) {
-//                System.out.println(f.getNom());
-//            }
-
-                List<Film> films = dao.getAll().get(21).getLesfilms();
-                for (Film f : films
-                ) {
-                    System.out.println(f.getTitle());
-                }
-            }
-
-    };
-}
 }
