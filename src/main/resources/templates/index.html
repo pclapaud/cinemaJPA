@@ -5,7 +5,7 @@
 <nav th:replace="fragment/header.html :: menu"></nav>
 <h1 th:text="'Bonjour : '+${nom}">HELLO</h1>
 <ul>
-    <a th:each="film:${films}"th:href="'detailFilm/'+${film.getId()}">
+    <a th:each="film:${films}"th:href="'/film/details/'+${film.getId()}">
         <li th:text="${film.getTitle()}"></li>
     </a>
 

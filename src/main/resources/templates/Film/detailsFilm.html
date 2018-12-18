@@ -32,7 +32,7 @@
     </tr>
     <tr><td colspan="3">Réalisateur</td></tr>
     <tr><td colspan="3">
-        <a th:href="'/detailActeur/'+${film.getRealisateur().getId()}">
+        <a th:href="'/acteur/details/'+${film.getRealisateur().getId()}">
             <ul>
                 <img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${film.getRealisateur().getPhotoPath()}">
                 <li th:text="${film.getRealisateur().getNom()+'   '+film.getRealisateur().getPrenom()}"></li>
@@ -40,6 +40,25 @@
         </a>
     </td>
 </table>
+
+<form action="#" th:action="@{/film/modification}" method="post" enctype="multipart/form-data">
+
+    <p>titre : <input th:value="${film.getTitle()}" name="titre" type="text" /></p>
+    <p>note : <input th:value="${film.getRating()}" name="note" type="number" /></p>
+
+    <p>sommaire : <input th:value="${film.getSummary()}" name="sommaire" type="text" /></p>
+    <p>Réalisateur :
+        <select  name="realisateur">
+
+            <option th:each="person : ${persons}" th:selected="${person.getId()==film.realisateur.getId()}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+
+                </select>
+    </p>
+    <input type="submit" value="Valider" />
+</form>
+
+
+
 <div th:replace="fragment/footer.html::footer"/>
 </body>
 </html>

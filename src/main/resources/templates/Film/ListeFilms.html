@@ -3,11 +3,11 @@
 <div th:replace="fragment/header.html :: header-css"></div>
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
-<ul th:each="film:${films}"th:href="'detailFilm/'+${film.id}">
+<a th:each="film:${films}"th:href="'/film/details/'+${film.id}">
     <li th:text="${film.title}"></li>
-</ul>
-<form action="#" th:action="@{/film/creation}" method="post" enctype="multipart/form-data">
-
+</a>
+<form action="#" th:action="@{/film/creation}" th:object="${film}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}"/>
     <p>titre : <input name="titre" type="text" /></p>
     <p>note : <input  name="note" type="number" /></p>
     <P>image : <input  name="file" type="file"></P>

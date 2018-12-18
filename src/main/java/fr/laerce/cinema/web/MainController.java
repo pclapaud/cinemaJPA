@@ -1,29 +1,19 @@
-package fr.laerce.cinema.web;//package fr.laerce.cinemav2springbbot.web;
-
-
+package fr.laerce.cinema.web;
 
 import fr.laerce.cinema.dao.FilmDao;
 import fr.laerce.cinema.dao.PersonneDao;
-import fr.laerce.cinema.model.Film;
 import fr.laerce.cinema.model.Personne;
-import net.bytebuddy.asm.Advice;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.List;
 
 
 @Controller
@@ -41,61 +31,17 @@ public class MainController {
         model.addAttribute("films", filmDao.findAll());
         return "index";
     }
-@GetMapping("/acteurs")
-    public String main3(Model model){
-    model.addAttribute("acteurs",personneDao.findAll());
-    return "ListeActeurs";
-}
-    @GetMapping("/films")
-    public String main2(Model model){
-        model.addAttribute("films",filmDao.findAll());
-        model.addAttribute("persons",personneDao.findAll());
-        model.addAttribute("Film", new Film());
-        return "ListeFilms";
-    }
 
-    @GetMapping("/detailFilm/{id}")
-    public String detailFilm(Model model, @PathVariable("id")long id){
-        model.addAttribute("film", filmDao.findById(id).get());
-        return "detailsFilm";
-    }
 
-    @GetMapping("/detailActeur/{id}")
-    public String detailActeur(Model model, @PathVariable("id") Long id){
 
-        model.addAttribute("Personne", personneDao.findById(id).get());
-        return "detailsActeur";
-    }
-    @GetMapping("/creation")
-    public String modacteur(@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")Integer naissance){
-        Personne person = new Personne();
-        person.setNom(nom);
-        person.setPrenom(prenom);
-        person.setNaissance(naissance);
-        personneDao.save(person);
-        return "redirect:/";
-    }
-    @GetMapping("/modification")
-    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")Integer naissance,@ModelAttribute("photoPath")String photoPath){
-        Personne person = personneDao.findById(id).get();
-        person.setNom(nom);
-        person.setPrenom(prenom);
-        person.setNaissance(naissance);
-        personneDao.save(person);
-        return "redirect:/";
-    }
-    @GetMapping("/suprimer")
-    public String supacteur(@ModelAttribute("id")Long id){
 
-        personneDao.deleteById(id);
-        return "redirect:/";
-    }
+
     @RequestMapping(value = "/images/{dossier}/{id}")
     public ResponseEntity<byte[]> affiche(@PathVariable("id")String id,@PathVariable("dossier")String dossier) {
         try {
             // Chemin absolu de l'image
-            File file = ResourceUtils.getFile("classpath:images/"+dossier+"/"+id);
-//            File file = new File(monUrl+"\\"+dossier+"\\"+id);
+            //File file = ResourceUtils.getFile("classpath:images/"+dossier+"/"+id);
+            File file = new File("src/main/stockage/images/"+dossier+"/"+id);
 
             FileInputStream in = new FileInputStream(file);
             byte[] media = IOUtils.toByteArray(in);

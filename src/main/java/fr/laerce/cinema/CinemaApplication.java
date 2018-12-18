@@ -19,19 +19,5 @@ public class CinemaApplication {
     public static void main(String[] args) {
         SpringApplication.run(CinemaApplication.class, args);
     }
-//    @Bean
-//    public CommandLineRunner runner(PersonneDao dao){
-//        return new CommandLineRunner() {
-//            @Override
-//            @Transactional
-//            public void run(String... args) throws Exception {
-//
-//                List<Film> films = dao.getAll().get(1).getLesfilms();
-//                for (Film f: films
-//                     ) {
-//                    System.out.println(f.getTitle());
-//                }
-//            }
-//        };
-//    }
+
 }

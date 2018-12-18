@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragment/header.html :: header-css"></div>
+<body>
+<nav th:replace="fragment/header.html :: menu"></nav>
+<a th:each="acteur:${acteurs}"th:href="'/acteur/details/'+${acteur.id}">
+    <li th:text="${acteur.nom}"></li>
+</a>
+<form  method="post" action="/acteur/creation" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Ajouter un acteur:</legend>
+        <label  for="1">nom</label><input id="1" type="text" name="nom">
+        <label for="2">prenom</label><input id="2" type="text" name="prenom">
+        <label for="3">naissance</label><input id="3" type="number" name="naissance">
+        <input type="file" name="file">
+        <input type="submit">
+    </fieldset>
+</form>
+<div th:replace="fragment/footer.html::footer"/>
+</body>
+</html>

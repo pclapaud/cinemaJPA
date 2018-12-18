@@ -2,3 +2,8 @@
 body {
     padding-top: 3.5rem;
 }
+fieldset{
+    border: aqua;
+    border-style: solid;
+    border:1px;
+}
