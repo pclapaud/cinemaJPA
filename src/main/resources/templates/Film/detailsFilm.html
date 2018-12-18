@@ -42,7 +42,7 @@
 </table>
 
 <form action="#" th:action="@{/film/modification}" method="post" enctype="multipart/form-data">
-
+    <input hidden th:value="${film.getId()}" name="id" type="text" />
     <p>titre : <input th:value="${film.getTitle()}" name="titre" type="text" /></p>
     <p>note : <input th:value="${film.getRating()}" name="note" type="number" /></p>
 
@@ -54,10 +54,13 @@
 
                 </select>
     </p>
-    <input type="submit" value="Valider" />
+    <input type="submit" value="Modifier" />
 </form>
 
-
+<form method="get" action="/film/suprimer">
+    <input hidden type="text" name="id" th:value="${film.id}">
+    <input type="submit" value="Suprimer">
+</form>
 
 <div th:replace="fragment/footer.html::footer"/>
 </body>

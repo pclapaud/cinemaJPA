@@ -75,10 +75,10 @@ public class FilmController {
         return "redirect:/film/";
     }
     @PostMapping("/modification")
-    public String modi(@ModelAttribute Film film ,@RequestParam("titre") String titre ,@RequestParam("realisateur") Long realisateur ,@RequestParam("note") double note ,@RequestParam("sommaire") String sommaire){
+    public String modi(@RequestParam("id")Long id ,@RequestParam("titre") String titre ,@RequestParam("realisateur") Long realisateur ,@RequestParam("note") double note ,@RequestParam("sommaire") String sommaire){
         //genere mon nouveau filename
 
-
+        Film film = filmDao.findById(id).get();
         film.setSummary(sommaire);
         film.setTitle(titre);
         film.setRating(note);
@@ -87,6 +87,12 @@ public class FilmController {
         film.setRealisateur(per);
         filmDao.save(film);
 
+        return "redirect:/film/";
+    }
+    @GetMapping("/suprimer")
+    public String supacteur(@ModelAttribute("id")Long id){
+
+        filmDao.deleteById(id);
         return "redirect:/film/";
     }
 }
