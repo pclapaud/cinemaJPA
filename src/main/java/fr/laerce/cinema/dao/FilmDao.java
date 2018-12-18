@@ -39,8 +39,12 @@ public class FilmDao {
         Query query = entityManager.createQuery("Select max(f.imagePath) from Film f");
         String filename = (String)query.getResultList().get(0);
         filename = filename.substring(1);
-        int tempo = Integer.parseInt(filename.substring(0,filename.lastIndexOf('.')))+1;
+        Integer tempo = Integer.parseInt(filename.substring(0,filename.lastIndexOf('.')))+1;
+        String resultat =String.valueOf(tempo);
+        for(int i = String.valueOf(tempo).length(); i<4;i++){
+            resultat = 0+resultat;
+        }
 
-        return "f"+tempo+".jpg";
+        return "f"+resultat+".jpg";
     }
 }
