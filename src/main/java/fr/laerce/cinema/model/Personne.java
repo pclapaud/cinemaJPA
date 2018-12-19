@@ -1,8 +1,6 @@
 package fr.laerce.cinema.model;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,14 +65,19 @@ public class Personne {
         this.photoPath = imagePath;
     }
 
-    @OneToMany(mappedBy = "realisateur")
+    @OneToMany(mappedBy = "director")
     public List<Film> getLesfilms() {
         return lesfilms;
     }
     public void setLesfilms(List<Film> lesfilms) {
         this.lesfilms = lesfilms;
     }
-
+    public void addLesfilms(Film film){
+        if(!lesfilms.contains(film)){
+            lesfilms.add(film);
+            film.setDirector(this);
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

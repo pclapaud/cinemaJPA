@@ -32,10 +32,10 @@
     </tr>
     <tr><td colspan="3">Réalisateur</td></tr>
     <tr><td colspan="3">
-        <a th:href="'/acteur/details/'+${film.getRealisateur().getId()}">
+        <a th:href="'/acteur/details/'+${film.getDirector().getId()}">
             <ul>
-                <img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${film.getRealisateur().getPhotoPath()}">
-                <li th:text="${film.getRealisateur().getNom()+'   '+film.getRealisateur().getPrenom()}"></li>
+                <img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${film.getDirector().getPhotoPath()}">
+                <li th:text="${film.getDirector().getNom()+'   '+film.getDirector().getPrenom()}"></li>
             </ul>
         </a>
     </td>
@@ -50,7 +50,7 @@
     <p>Réalisateur :
         <select  name="realisateur">
 
-            <option th:each="person : ${persons}" th:selected="${person.getId()==film.realisateur.getId()}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+            <option th:each="person : ${persons}" th:selected="${person.getId()==film.getDirector.getId()}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
 
                 </select>
     </p>

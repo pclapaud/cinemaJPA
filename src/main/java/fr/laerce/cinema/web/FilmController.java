@@ -5,30 +5,12 @@ import fr.laerce.cinema.dao.PersonneDao;
 import fr.laerce.cinema.model.Film;
 import fr.laerce.cinema.model.Personne;
 import fr.laerce.cinema.service.MonImageManager;
-import net.bytebuddy.asm.Advice;
-import org.apache.catalina.connector.Request;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.validation.Valid;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,7 +51,7 @@ public class FilmController {
             film.setRating(note);
             film.setImagePath(fileName);
             Personne per = personneDao.findById(realisateur).get();
-            film.setRealisateur(per);
+            film.setDirector(per);
             filmDao.save(film);
 
         return "redirect:/film/";
@@ -84,7 +66,7 @@ public class FilmController {
         film.setRating(note);
 
         Personne per = personneDao.findById(realisateur).get();
-        film.setRealisateur(per);
+        film.setDirector(per);
         filmDao.save(film);
 
         return "redirect:/film/";

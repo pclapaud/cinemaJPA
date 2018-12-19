@@ -1,8 +1,6 @@
 package fr.laerce.cinema.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +12,7 @@ public class Film {
     private Double rating;
     private String imagePath;
     private String summary;
-    private Personne realisateur;
+    private Personne director;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,11 +66,11 @@ public class Film {
 
     @ManyToOne
     @JoinColumn(name = "film_director")
-    public Personne getRealisateur() {
-        return realisateur;
+    public Personne getDirector() {
+        return director;
     }
-    public void setRealisateur(Personne realisateur) {
-        this.realisateur = realisateur;
+    public void setDirector(Personne realisateur) {
+        this.director = realisateur;
     }
 
     @Override
@@ -85,11 +83,11 @@ public class Film {
                 Objects.equals(getRating(), film.getRating()) &&
                 Objects.equals(getImagePath(), film.getImagePath()) &&
                 Objects.equals(getSummary(), film.getSummary()) &&
-                Objects.equals(getRealisateur(), film.getRealisateur());
+                Objects.equals(getDirector(), film.getDirector());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getRealisateur());
+        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getDirector());
     }
 }
