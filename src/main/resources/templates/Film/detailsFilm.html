@@ -46,11 +46,11 @@
     <p>titre : <input th:value="${film.getTitle()}" name="titre" type="text" /></p>
     <p>note : <input th:value="${film.getRating()}" name="note" type="number" /></p>
 
-    <p>sommaire : <input th:value="${film.getSummary()}" name="sommaire" type="text" /></p>
+    <p>sommaire : <input th:value="${film.getSummary()}"style="height:200px;" name="sommaire" type="text" /></p>
     <p>Réalisateur :
         <select  name="realisateur">
 
-            <option th:each="person : ${persons}" th:selected="${person.getId()==film.getDirector.getId()}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+            <option th:each="person : ${persons}" th:selected="${person.getId()==film.getDirector().getId()}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
 
                 </select>
     </p>

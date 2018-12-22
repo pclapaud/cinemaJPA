@@ -14,6 +14,8 @@ import fr.laerce.cinema.service.MonImageManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 
 @Controller
 @RequestMapping("/acteur")
@@ -41,29 +43,28 @@ public class ActeurController {
         return "acteur/detailsActeur";
     }
     @PostMapping("/creation")
-    public String modacteur(@RequestParam("file") MultipartFile file, @ModelAttribute("nom")String nom, @ModelAttribute("prenom")String prenom, @ModelAttribute("naissance")Integer naissance){
+    public String modacteur(@RequestParam("file") MultipartFile file, @ModelAttribute("nom")String nom, @ModelAttribute("prenom")String prenom, @ModelAttribute("naissance")String naissance){
         Personne person = new Personne();
         person.setNom(nom);
         person.setPrenom(prenom);
-        person.setNaissance(naissance);
+        person.setNaissance(LocalDate.parse(naissance));
         String fileName=ImageMana.ajouteImage("p","personnes",file);
         person.setPhotoPath(fileName);
         personneDao.save(person);
-        return "redirect:/";
+        return "redirect:/acteur/";
     }
     @GetMapping("/modification")
-    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")Integer naissance,@ModelAttribute("photoPath")String photoPath){
+    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")String naissance,@ModelAttribute("photoPath")String photoPath){
         Personne person = personneDao.findById(id).get();
         person.setNom(nom);
         person.setPrenom(prenom);
-        person.setNaissance(naissance);
+        person.setNaissance(LocalDate.parse(naissance));
         personneDao.save(person);
         return "redirect:/acteur/details/"+id;
     }
     @GetMapping("/suprimer")
     public String supacteur(@ModelAttribute("id")Long id){
-
         personneDao.deleteById(id);
-        return "redirect:/";
+        return "redirect:/acteur/";
     }
 }

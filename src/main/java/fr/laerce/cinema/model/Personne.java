@@ -1,19 +1,23 @@
 package fr.laerce.cinema.model;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-//si le nom de la table est diff que la class
-@Table(name="persons")
+@Entity(name = "Personne")
+@Table(name= "persons")
 public class Personne {
     private Long id;
     private String nom;
     private String prenom;
-    private Integer naissance;
+    private java.time.LocalDate naissance;
     private String photoPath;
-    private List<Film> lesfilms;
+    private List<Film> lesFilms;
+    private List<Role> lesRoles = new ArrayList<>();
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +25,6 @@ public class Personne {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,12 +50,11 @@ public class Personne {
     }
 
     @Basic
-    @Column(name = "birth_year", nullable = true)
-    public Integer getNaissance() {
+    @Column(name = "birthday", nullable = true)
+    public java.time.LocalDate getNaissance() {
         return naissance;
     }
-
-    public void setNaissance(Integer birthYear) {
+    public void setNaissance(java.time.LocalDate birthYear) {
         this.naissance = birthYear;
     }
 
@@ -67,33 +69,36 @@ public class Personne {
 
     @OneToMany(mappedBy = "director")
     public List<Film> getLesfilms() {
-        return lesfilms;
+        return lesFilms;
     }
     public void setLesfilms(List<Film> lesfilms) {
-        this.lesfilms = lesfilms;
+        this.lesFilms = lesfilms;
     }
-    public void addLesfilms(Film film){
-        if(!lesfilms.contains(film)){
-            lesfilms.add(film);
-            film.setDirector(this);
-        }
+    @OneToMany(mappedBy = "personne")
+    public List<Role> getLesRoles() {
+        return lesRoles;
     }
+    public void setLesRoles(List<Role> lesroles) {
+        this.lesRoles = lesroles;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Personne persons = (Personne) o;
-
-        if (id != persons.id) return false;
-
-
-        return true;
+        if (!(o instanceof Personne)) return false;
+        Personne personne = (Personne) o;
+        return Objects.equals(getId(), personne.getId()) &&
+                Objects.equals(getNom(), personne.getNom()) &&
+                Objects.equals(getPrenom(), personne.getPrenom()) &&
+                Objects.equals(getNaissance(), personne.getNaissance()) &&
+                Objects.equals(getPhotoPath(), personne.getPhotoPath()) &&
+                Objects.equals(lesFilms, personne.lesFilms) &&
+                Objects.equals(getLesRoles(), personne.getLesRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNom(), getPrenom(), getNaissance(), getPhotoPath());
+        return Objects.hash(getId(), getNom(), getPrenom(), getNaissance(), getPhotoPath(), lesFilms, getLesRoles());
     }
 }

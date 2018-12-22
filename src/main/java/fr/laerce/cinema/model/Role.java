@@ -1,78 +1,97 @@
 package fr.laerce.cinema.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-//si le nom de la table est diff que la class
-@Table(name="play")
-public class Role {
-    private long id;
-    private long personneId;
-    private long filmId;
-    private Integer ordre;
-    private String nom;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    public long getId() {
+@Entity(name = "Role")
+@Table(name = "play")
+public class Role {
+
+    @EmbeddedId
+    public RoleId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("personId")
+    public Personne personne;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("filmId")
+    public Film film;
+
+    @Column(name = "rank")
+    public Integer rank;
+    @Column(name = "name")
+    public String name;
+
+
+    public RoleId getId() {
         return id;
     }
-    public void setId(long id) {
+
+    public void setId(RoleId id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "person_id", nullable = false)
-    public long getPersonneId() {
-        return personneId;
-    }
-    public void setPersonneId(long personneId) {
-        this.personneId = personneId;
-    }
-    @Basic
-    @Column(name = "film_id", nullable = false)
-    public long getFilmId() {
-        return filmId;
-    }
-    public void setFilmId(long filmId) {
-        this.filmId = filmId;
-    }
-    @Basic
-    @Column(name = "rank", nullable = true)
-    public Integer getOrdre() {
-        return ordre;
-    }
-    public void setOrdre(Integer ordre) {
-        this.ordre = ordre;
+    public Personne getPersonne() {
+        return personne;
     }
 
-    @Basic
-    @Column(name = "name", nullable = true, length = 80)
-    public String getNom() {
-        return nom;
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
     }
-    public void setNom(String nom) {
-        this.nom = nom;
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Role(Personne personne, Film film) {
+        this.personne = personne;
+        this.film = film;
+        this.id = new RoleId(personne.getId(), film.getId());
+
+    }
+
+    public Role() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Role)) return false;
-        Role role = (Role) o;
-        return getId() == role.getId() &&
-                getPersonneId() == role.getPersonneId() &&
-                getFilmId() == role.getFilmId() &&
-                Objects.equals(getOrdre(), role.getOrdre()) &&
-                Objects.equals(getNom(), role.getNom());
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Role that = (Role) o;
+        return Objects.equals(personne, that.personne) &&
+                Objects.equals(film, that.film);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPersonneId(), getFilmId(), getOrdre(), getNom());
+        return Objects.hash(personne, film);
     }
 }

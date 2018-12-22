@@ -1,10 +1,13 @@
 package fr.laerce.cinema.model;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-@Entity
-//si le nom de la table est diff que la class
+@Entity(name = "Film")
 @Table(name="films")
 public class Film {
     private long id;
@@ -13,14 +16,15 @@ public class Film {
     private String imagePath;
     private String summary;
     private Personne director;
+    private java.time.LocalDate dateSortie;
+    private List<Role> lesRoles = new ArrayList<>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.TABLE)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -30,7 +34,6 @@ public class Film {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String surname) {
         this.title = surname;
     }
@@ -40,7 +43,6 @@ public class Film {
     public Double getRating() {
         return rating;
     }
-
     public void setRating(Double givenname) {
         this.rating = givenname;
     }
@@ -50,7 +52,6 @@ public class Film {
     public String getSummary() {
         return summary;
     }
-
     public void setSummary(String birthYear) {
         this.summary = birthYear;
     }
@@ -72,6 +73,22 @@ public class Film {
     public void setDirector(Personne realisateur) {
         this.director = realisateur;
     }
+    @OneToMany(mappedBy = "film")
+    public List<Role> getLesRoles() {
+        return lesRoles;
+    }
+    public void setLesRoles(List<Role> lesroles) {
+        this.lesRoles = lesroles;
+    }
+
+    @Basic
+    @Column(name = "release_date", nullable = true)
+    public java.time.LocalDate getDateSortie() {
+        return dateSortie;
+    }
+    public void setDateSortie(java.time.LocalDate dateSortie) {
+        this.dateSortie = dateSortie;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -83,11 +100,13 @@ public class Film {
                 Objects.equals(getRating(), film.getRating()) &&
                 Objects.equals(getImagePath(), film.getImagePath()) &&
                 Objects.equals(getSummary(), film.getSummary()) &&
-                Objects.equals(getDirector(), film.getDirector());
+                Objects.equals(getDirector(), film.getDirector()) &&
+                Objects.equals(getDateSortie(), film.getDateSortie()) &&
+                Objects.equals(getLesRoles(), film.getLesRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getDirector());
+        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getDirector(), getDateSortie(), getLesRoles());
     }
 }
