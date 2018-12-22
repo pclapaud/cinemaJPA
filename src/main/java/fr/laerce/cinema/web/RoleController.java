@@ -29,7 +29,7 @@ public class RoleController {
     @GetMapping("/")
     public String main3(Model model){
         model.addAttribute("roles",RoleDao.findAll());
-        return "redirect:/";
+        return "Role/ListeRole";
     }
 
 

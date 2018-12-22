@@ -1,9 +1,6 @@
 package fr.laerce.cinema.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -16,7 +13,7 @@ public class Role {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("personId")
-    public Personne personne;
+    public Personne person;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("filmId")
@@ -36,12 +33,12 @@ public class Role {
         this.id = id;
     }
 
-    public Personne getPersonne() {
-        return personne;
+    public Personne getPerson() {
+        return person;
     }
 
-    public void setPersonne(Personne personne) {
-        this.personne = personne;
+    public void setPerson(Personne personne) {
+        this.person = personne;
     }
 
     public Film getFilm() {
@@ -69,7 +66,7 @@ public class Role {
     }
 
     public Role(Personne personne, Film film) {
-        this.personne = personne;
+        this.person = personne;
         this.film = film;
         this.id = new RoleId(personne.getId(), film.getId());
 
@@ -86,12 +83,12 @@ public class Role {
             return false;
 
         Role that = (Role) o;
-        return Objects.equals(personne, that.personne) &&
+        return Objects.equals(person, that.person) &&
                 Objects.equals(film, that.film);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personne, film);
+        return Objects.hash(person, film);
     }
 }

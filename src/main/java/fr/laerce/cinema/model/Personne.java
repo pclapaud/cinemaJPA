@@ -1,7 +1,5 @@
 package fr.laerce.cinema.model;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +72,7 @@ public class Personne {
     public void setLesfilms(List<Film> lesfilms) {
         this.lesFilms = lesfilms;
     }
-    @OneToMany(mappedBy = "personne")
+    @OneToMany(mappedBy = "person")
     public List<Role> getLesRoles() {
         return lesRoles;
     }

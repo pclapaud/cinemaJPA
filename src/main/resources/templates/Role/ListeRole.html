@@ -4,9 +4,9 @@
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
 <a th:each="role:${roles}">
-    <li th:text="${role.}"></li>
+    <li th:text="${role.getName()}"></li>
 </a>
-<a th:each="role:${ro}"
+
 <div th:replace="fragment/footer.html::footer"/>
 </body>
 </html>
