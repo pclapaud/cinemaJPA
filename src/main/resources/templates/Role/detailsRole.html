@@ -8,40 +8,23 @@
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
 <table border="1px" style="width:70%">
-    <tr ><td colspan="2" th:text="'Acteur : '+${Personne.getNom()}+${Personne.getPrenom()}"></td></tr>
-    <tr>
-        <td><img width="200px" HEIGHT="200px" th:src="'/images/personnes/'+${Personne.getPhotoPath()}"></td>
+    <tr ><td colspan="2" th:text="'role : '+${role.getName()}+${role.getRank()}"></td></tr>
 
 
-        <th th:text="'date de naissance : '+${Personne.getNaissance()}"></th>
-    </tr>
 
-<tr>
-    <td colspan="2">Les films</td>
-</tr>
-    <tr>
-    <td colspan="2">
-<!--<a th:each="roleur , iter:${Personne.getRoles()}"th:href="'/detailFilm/'+${roleur.getFilm().getTitre()}">-->
-
-    <!--<li th:text="${Personne.getRoles().get(iter.index).getRole()}+' dans le film '+${roleur.getFilm().getTitre()}"></li>-->
-
-
-<!--</a>-->
-    </td>
-</tr>
 
 </table>
-<form method="get" action="/acteur/modification">
-    <input hidden type="text" name="id" th:value="${Personne.id}">
-    <label  for="1"></label><input th:value="${Personne.getNom()}" id="1" type="text" name="nom">
-    <label  for="2"></label><input th:value="${Personne.getPrenom()}" id="2" type="text" name="prenom">
-    <label  for="3"></label><input th:value="${Personne.getNaissance()}" id="3" type="number" name="naissance">
-    <input type="submit" value="Modifier">
-</form>
-<form method="get" action="/acteur/suprimer">
-    <input hidden type="text" name="id" th:value="${Personne.id}">
-    <input type="submit" value="Suprimer">
-</form>
+<!--<form method="get" action="/acteur/modification">-->
+    <!--<input hidden type="text" name="id" th:value="${Personne.id}">-->
+    <!--<label  for="1"></label><input th:value="${Personne.getNom()}" id="1" type="text" name="nom">-->
+    <!--<label  for="2"></label><input th:value="${Personne.getPrenom()}" id="2" type="text" name="prenom">-->
+    <!--<label  for="3"></label><input th:value="${Personne.getNaissance()}" id="3" type="number" name="naissance">-->
+    <!--<input type="submit" value="Modifier">-->
+<!--</form>-->
+<!--<form method="get" action="/acteur/suprimer">-->
+    <!--<input hidden type="text" name="id" th:value="${Personne.id}">-->
+    <!--<input type="submit" value="Suprimer">-->
+<!--</form>-->
 
 <div th:replace="fragment/footer.html::footer"/>
 </body>

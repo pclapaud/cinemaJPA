@@ -12,10 +12,12 @@ public class Role {
     public RoleId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id")
     @MapsId("personId")
-    public Personne person;
+    public Personne personne;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "film_id")
     @MapsId("filmId")
     public Film film;
 
@@ -33,12 +35,12 @@ public class Role {
         this.id = id;
     }
 
-    public Personne getPerson() {
-        return person;
+    public Personne getPersonne() {
+        return personne;
     }
 
-    public void setPerson(Personne personne) {
-        this.person = personne;
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
     }
 
     public Film getFilm() {
@@ -66,7 +68,7 @@ public class Role {
     }
 
     public Role(Personne personne, Film film) {
-        this.person = personne;
+        this.personne = personne;
         this.film = film;
         this.id = new RoleId(personne.getId(), film.getId());
 
@@ -83,12 +85,12 @@ public class Role {
             return false;
 
         Role that = (Role) o;
-        return Objects.equals(person, that.person) &&
+        return Objects.equals(personne, that.personne) &&
                 Objects.equals(film, that.film);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(person, film);
+        return Objects.hash(personne, film);
     }
 }

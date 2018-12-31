@@ -2,8 +2,11 @@ package fr.laerce.cinema.web;//package fr.laerce.cinemav2springbbot.web;
 
 import fr.laerce.cinema.dao.FilmDao;
 import fr.laerce.cinema.dao.PersonneDao;
+import fr.laerce.cinema.dao.RoleDao;
 import fr.laerce.cinema.model.Film;
 import fr.laerce.cinema.model.Personne;
+import fr.laerce.cinema.model.Role;
+import fr.laerce.cinema.model.RoleId;
 import fr.laerce.cinema.service.MonImageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/film")
 public class FilmController {
@@ -23,6 +28,8 @@ public class FilmController {
     FilmDao filmDao;
     @Autowired
     PersonneDao personneDao;
+    @Autowired
+    RoleDao roledao;
     @Autowired
     MonImageManager ImageMana;
 
@@ -34,10 +41,11 @@ public class FilmController {
         return "Film/ListeFilms";
     }
 
-    @GetMapping("/details/{id}")
+    @PostMapping("/details/{id}")
     public String detailFilm(Model model, @PathVariable("id")long id){
         model.addAttribute("film", filmDao.findById(id).get());
         model.addAttribute("persons", personneDao.findAll());
+        model.addAttribute("roles", roledao.findAll());
         return "Film/detailsFilm";
     }
     //@RequestMapping(value=("/creation"),headers=("content-type=multipart/*"),method=RequestMethod.POST)

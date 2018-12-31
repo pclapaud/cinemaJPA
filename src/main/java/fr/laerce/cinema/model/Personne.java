@@ -72,7 +72,7 @@ public class Personne {
     public void setLesfilms(List<Film> lesfilms) {
         this.lesFilms = lesfilms;
     }
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "personne")
     public List<Role> getLesRoles() {
         return lesRoles;
     }

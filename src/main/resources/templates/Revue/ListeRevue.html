@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragment/header.html :: header-css"></div>
+<body>
+<nav th:replace="fragment/header.html :: menu"></nav>
+<a th:each="revue:${revues}">
+    <li th:text="${revue.getFilm_id()}"></li>
+    <li th:text="${revue.getUser_id()}"></li>
+    <li th:text="${revue.getArticle()}"></li>
+</a>
+
+
+<div th:replace="fragment/footer.html::footer"/>
+</body>
+</html>

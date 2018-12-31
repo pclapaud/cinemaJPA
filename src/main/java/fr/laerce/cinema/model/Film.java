@@ -18,6 +18,7 @@ public class Film {
     private Personne director;
     private java.time.LocalDate dateSortie;
     private List<Role> lesRoles = new ArrayList<>();
+    private List<revue> lesRevues = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
@@ -79,6 +80,13 @@ public class Film {
     }
     public void setLesRoles(List<Role> lesroles) {
         this.lesRoles = lesroles;
+    }
+    @OneToMany(mappedBy = "film_id")
+    public List<revue> getLesRevues() {
+        return lesRevues;
+    }
+    public void setLesRevues(List<revue> lesRevues) {
+        this.lesRevues = lesRevues;
     }
 
     @Basic
