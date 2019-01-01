@@ -1,0 +1,43 @@
+<!DOCTYPE "HTML">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="fragment/header.html :: header-css"></div>
+</head>
+<body>
+<nav th:replace="fragment/header.html :: menu"></nav>
+<table border="1px" style="width:70%">
+    <tr ><td colspan="3" th:text="'Utilisateur : '+${user.getLogin()}"></td></tr>
+    <tr>
+        <th th:text="'nom : '+${user.getSurname()}"></th>
+        <th th:text="'prenom : '+${user.getGivenname()}"></th>
+    <th th:text="'mdp : '+${user.getPassword()}"></th>
+        <th >les revues :
+            <a th:each="revue:${user.getLesRevues()}" th:href="'/revues/'+${revue.getId()}" th:text="${revue.getId()}"></a>
+        </th>
+    </tr>
+</table>
+
+
+
+
+<form th:action="'/User/modification'" th:object="${user}" method="post" >
+    <input hidden th:field="*{id}" type="text" />
+    <p>login : <input th:field="*{login}" type="text" /></p>
+    <p>prenom : <input th:field="*{givenname}"  type="text" /></p>
+    <p>nom : <input th:field="*{surname}" type="text" /></p>
+    <p>password : <input th:field="*{password}" type="text" /></p>
+
+
+    <input type="submit" value="modification" />
+</form>
+
+<form method="get" action="/User/suprimer">
+    <input hidden type="text" name="id" th:value="${user.getId()}">
+    <input type="submit" value="Suprimer">
+</form>
+
+<div th:replace="fragment/footer.html::footer"/>
+</body>
+</html>

@@ -3,10 +3,18 @@
 <div th:replace="fragment/header.html :: header-css"></div>
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
-<a th:each="user:${users}">
-    <li th:text="${user.getGivenname()}"></li>
+<a th:each="user:${users}" th:href="'/User/details/'+${user.getId()}">
+    <li th:text="${user.getLogin()}"></li>
 </a>
+<form th:action="'/User/creation'" th:object="${newuser}" method="post" >
+<p>login : <input th:field="*{login}" type="text" /></p>
+<p>prenom : <input th:field="*{givenname}"  type="text" /></p>
+<p>nom : <input th:field="*{surname}" type="text" /></p>
+<p>password : <input th:field="*{password}" type="text" /></p>
 
+
+<input type="submit" value="creation" />
+</form>
 
 <div th:replace="fragment/footer.html::footer"/>
 </body>

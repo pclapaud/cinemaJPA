@@ -16,7 +16,7 @@ public class User {
     private List<revue> lesRevues = new ArrayList<>();
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     public long getId() {
         return id;

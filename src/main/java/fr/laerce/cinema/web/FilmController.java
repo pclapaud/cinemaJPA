@@ -41,7 +41,7 @@ public class FilmController {
         return "Film/ListeFilms";
     }
 
-    @PostMapping("/details/{id}")
+    @GetMapping("/details/{id}")
     public String detailFilm(Model model, @PathVariable("id")long id){
         model.addAttribute("film", filmDao.findById(id).get());
         model.addAttribute("persons", personneDao.findAll());

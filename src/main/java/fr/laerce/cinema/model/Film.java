@@ -1,7 +1,5 @@
 package fr.laerce.cinema.model;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,7 @@ public class Film {
     private java.time.LocalDate dateSortie;
     private List<Role> lesRoles = new ArrayList<>();
     private List<revue> lesRevues = new ArrayList<>();
+    private List<Genres> lesGenres;
 
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
@@ -89,6 +88,12 @@ public class Film {
         this.lesRevues = lesRevues;
     }
 
+    @ManyToMany(mappedBy = "filmGenre")
+    public List<Genres> getLesGenres() { return lesGenres; }
+    public void setLesGenres(List<Genres> genre) {
+        this.lesGenres = genre;
+    }
+
     @Basic
     @Column(name = "release_date", nullable = true)
     public java.time.LocalDate getDateSortie() {
@@ -110,11 +115,13 @@ public class Film {
                 Objects.equals(getSummary(), film.getSummary()) &&
                 Objects.equals(getDirector(), film.getDirector()) &&
                 Objects.equals(getDateSortie(), film.getDateSortie()) &&
-                Objects.equals(getLesRoles(), film.getLesRoles());
+                Objects.equals(getLesRoles(), film.getLesRoles()) &&
+                Objects.equals(getLesRevues(), film.getLesRevues()) &&
+                Objects.equals(getLesGenres(), film.getLesGenres());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getDirector(), getDateSortie(), getLesRoles());
+        return Objects.hash(getId(), getTitle(), getRating(), getImagePath(), getSummary(), getDirector(), getDateSortie(), getLesRoles(), getLesRevues(), getLesGenres());
     }
 }
