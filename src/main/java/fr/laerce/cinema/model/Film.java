@@ -17,7 +17,7 @@ public class Film {
     private java.time.LocalDate dateSortie;
     private List<Role> lesRoles = new ArrayList<>();
     private List<revue> lesRevues = new ArrayList<>();
-    private List<Genres> lesGenres;
+    private List<Genre> lesGenres;
 
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
@@ -89,8 +89,8 @@ public class Film {
     }
 
     @ManyToMany(mappedBy = "filmGenre")
-    public List<Genres> getLesGenres() { return lesGenres; }
-    public void setLesGenres(List<Genres> genre) {
+    public List<Genre> getLesGenres() { return lesGenres; }
+    public void setLesGenres(List<Genre> genre) {
         this.lesGenres = genre;
     }
 

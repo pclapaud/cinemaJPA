@@ -3,16 +3,20 @@
 <div th:replace="fragment/header.html :: header-css"></div>
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
-<a th:each="revue:${revues}" th:href="'/Revue/details/'+${revue.getId()}">
-    <li th:text="${revue.getId()}"></li>
+<a th:each="genree:${genres}" th:href="'/Revue/details/'+${genree.getId()}">
+    <ul th:text="${genree.getName()}">
+        <li th:each="film:${genree.getFilmGenre()}"><a th:text="${film.getTitle()}" th:href="'/film/details/'+${film.id}"></a></li>
+    </ul>
 </a>
 
-<form th:action="'/Revue/creation'" th:object="${newrevue}" method="post" >
-    <p>article : <input th:field="*{article}" type="text" /></p>
-    <p>date : <input name="date"  type="date" /></p>
-    <p>film : <select th:field="*{film_id}"><option th:each="film:${films}" th:value="${film.getId()}" th:text="${film.getTitle()}"></option></select></p>
-    <p>Utilisateur : <select th:field="*{user_id}"><option th:each="user:${users}" th:value="${user.getId()}" th:text="${user.getLogin()}"></option></select></p>
-    <input type="submit" value="creation" />
+<form th:action="'/Genre/creation'" th:object="${newGenre}" method="post" >
+    <p>nom : <input th:field="*{name}" type="text" /></p>
+    <input type="submit" value="Nouveau Genre" />
+</form>
+<form th:action="'/Genre/ajoutfilm'"  method="post" >
+    <p>film : <select name="film"><option th:each="film:${films}" th:value="${film.getId()}" th:text="${film.getTitle()}"></option></select></p>
+    <p>genre : <select name="genre"><option th:each="genree:${genres}" th:value="${genree.getId()}" th:text="${genree.getName()}"></option></select></p>
+    <input type="submit" value="liaison film" />
 </form>
 
 

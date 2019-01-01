@@ -5,14 +5,14 @@ import java.util.*;
 
 @Entity
 @Table(name="genres")
-public class Genres {
+public class Genre {
     private long id;
     private String name;
     private List<Film> filmGenre;
 
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     public long getId() {
         return id;
@@ -40,11 +40,11 @@ public class Genres {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Genres)) return false;
-        Genres genres = (Genres) o;
-        return getId() == genres.getId() &&
-                Objects.equals(getName(), genres.getName()) &&
-                Objects.equals(getFilmGenre(), genres.getFilmGenre());
+        if (!(o instanceof Genre)) return false;
+        Genre genre = (Genre) o;
+        return getId() == genre.getId() &&
+                Objects.equals(getName(), genre.getName()) &&
+                Objects.equals(getFilmGenre(), genre.getFilmGenre());
     }
 
     @Override

@@ -15,7 +15,7 @@
     <th th:text="'la note du film : '+${film.getRating()}"></th>
 
     <th th:text="'resumer : '+${film.getSummary()}"></th>
-        <th >les genres :
+        <th >les genre :
             <li th:each="genre:${film.getLesGenres()}" th:text="${genre.getName()}"></li>
         </th>
     </tr>
