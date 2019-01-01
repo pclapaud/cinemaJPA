@@ -31,6 +31,12 @@ public class GenreController {
         model.addAttribute("newGenre",new Genre());
         return "Genre/ListeGenre";
     }
+    @GetMapping("/details/{id}")
+    public String detailFilm(Model model, @PathVariable("id")long id){
+        model.addAttribute("genree", genreDao.findById(id).get());
+
+        return "Genre/detailsGenre";
+    }
     @PostMapping("/creation")
     public String crea(@ModelAttribute Genre genre){
         genreDao.save(genre);
@@ -43,6 +49,17 @@ public class GenreController {
         listActua.add(filmDao.findById(film_id).get());
         genre.setFilmGenre(listActua);
         genreDao.save(genre);
+        return "redirect:/Genre/";
+    }
+    @PostMapping("/modification")
+    public String cremoda(@ModelAttribute Genre genre){
+        genreDao.save(genre);
+        return "redirect:/Genre/";
+    }
+    @GetMapping("/suprimer")
+    public String supacteur(@ModelAttribute("id")Long id){
+
+        genreDao.deleteById(id);
         return "redirect:/Genre/";
     }
 }

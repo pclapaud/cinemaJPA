@@ -3,9 +3,10 @@
 <div th:replace="fragment/header.html :: header-css"></div>
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
-<a th:each="genree:${genres}" th:href="'/Revue/details/'+${genree.getId()}">
-    <ul th:text="${genree.getName()}">
-        <li th:each="film:${genree.getFilmGenre()}"><a th:text="${film.getTitle()}" th:href="'/film/details/'+${film.id}"></a></li>
+<a th:each="genree:${genres}" th:href="'/Genre/details/'+${genree.getId()}">
+    <ul>
+        <li th:text="${genree.getName()}"></li>
+
     </ul>
 </a>
 

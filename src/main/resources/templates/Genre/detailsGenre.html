@@ -8,28 +8,21 @@
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
 <table border="1px" style="width:70%">
-    <tr ><td colspan="3" th:text="'Utilisateur : '+${revue.getUser_id().getLogin()}"></td></tr>
-    <tr>
-        <th th:text="'film : '+${revue.getFilm_id().getTitle()}"></th>
-        <th th:text="'date : '+${revue.getDatte()}"></th>
-        <th th:text="'article : '+${revue.getArticle()}"></th>
-    </tr>
+    <li th:each="film:${genree.getFilmGenre()}"><a th:text="${film.getTitle()}" th:href="'/film/details/'+${film.id}"></a></li>
 </table>
 
 
 
 
-<form th:action="'/Revue/modification'" th:object="${revue}" method="post" >
+<form th:action="'/Genre/modification'" th:object="${genree}" method="post" >
     <input hidden th:field="*{id}" type="text" />
-    <p>article : <input th:field="*{article}" type="text" /></p>
-    <p>date : <input name="date" th:value="${revue.getDatte()}" type="date" /></p>
-    <p>film : <select th:field="*{film_id}"><option th:each="film:${films}" th:value="${film.getId()}" th:text="${film.getTitle()}"></option></select></p>
-    <p>Utilisateur : <select th:field="*{user_id}"><option th:each="user:${users}" th:value="${user.getId()}" th:text="${user.getLogin()}"></option></select></p>
-    <input type="submit" value="modification" />
+    <p>nom : <input th:field="*{name}" type="text" /></p>
+    <input hidden th:field="*{filmGenre}" type="text" />
+    <input type="submit" value="rennomer">
 </form>
 
-<form method="get" action="/Revue/suprimer">
-    <input hidden type="text" name="id" th:value="${revue.getId()}">
+<form method="get" action="/Genre/suprimer">
+    <input hidden th:field="*{id}" type="text" />
     <input type="submit" value="Suprimer">
 </form>
 
