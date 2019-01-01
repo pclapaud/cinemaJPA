@@ -28,12 +28,12 @@ public class Genres {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "film_genre",
-            joinColumns = @JoinColumn(name = "genre_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id",
-                    referencedColumnName = "id"))
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "film_genre",
+            joinColumns = {@JoinColumn(name = "genre_id")},
+            inverseJoinColumns = { @JoinColumn(name = "film_id")}
+            )
     public List<Film> getFilmGenre() { return filmGenre; }
     public void setFilmGenre(List<Film> filmGenre) { this.filmGenre = filmGenre; }
 

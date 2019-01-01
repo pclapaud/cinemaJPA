@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragment/header.html :: header-css"></div>
+<body>
+<nav th:replace="fragment/header.html :: menu"></nav>
+<a th:each="revue:${revues}" th:href="'/Revue/details/'+${revue.getId()}">
+    <li th:text="${revue.getId()}"></li>
+</a>
+
+<form th:action="'/Revue/creation'" th:object="${newrevue}" method="post" >
+    <p>article : <input th:field="*{article}" type="text" /></p>
+    <p>date : <input name="date"  type="date" /></p>
+    <p>film : <select th:field="*{film_id}"><option th:each="film:${films}" th:value="${film.getId()}" th:text="${film.getTitle()}"></option></select></p>
+    <p>Utilisateur : <select th:field="*{user_id}"><option th:each="user:${users}" th:value="${user.getId()}" th:text="${user.getLogin()}"></option></select></p>
+    <input type="submit" value="creation" />
+</form>
+
+
+<div th:replace="fragment/footer.html::footer"/>
+</body>
+</html>
