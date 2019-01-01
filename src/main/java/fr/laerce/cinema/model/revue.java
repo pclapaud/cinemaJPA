@@ -15,8 +15,8 @@ public class revue {
     private java.time.LocalDate datte;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
     public long getId() {
         return id;
     }
