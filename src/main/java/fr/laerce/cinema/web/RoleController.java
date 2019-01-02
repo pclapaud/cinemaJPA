@@ -4,6 +4,7 @@ import fr.laerce.cinema.dao.FilmDao;
 import fr.laerce.cinema.dao.PersonneDao;
 import fr.laerce.cinema.dao.RoleDao;
 import fr.laerce.cinema.model.Role;
+import fr.laerce.cinema.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,21 +31,23 @@ public class RoleController {
         model.addAttribute("roles",RoleDao.findAll());
         model.addAttribute("films",filmDao.findAll());
         model.addAttribute("personnes",personneDao.findAll());
+        model.addAttribute("newrole",new Role());
         return "Role/ListeRole";
     }
-    @GetMapping("/details/")
-    public String detailFilm(Model model, @ModelAttribute("role")Role role){
-        model.addAttribute("role", (Role)role);
+    @GetMapping("/details/{id}")
+    public String detailFilm(Model model,@PathVariable("id")long id){
+        model.addAttribute("role",RoleDao.findById(id).get());
+        model.addAttribute("roles",RoleDao.findAll());
+        model.addAttribute("films",filmDao.findAll());
+        model.addAttribute("personnes",personneDao.findAll());
         return "Role/detailsRole";
     }
     @PostMapping("/creation")
-    public String modacteur( @ModelAttribute("film_id")long film_id, @ModelAttribute("person_id")long person_id, @ModelAttribute("rank")Integer rank, @ModelAttribute("name")String name){
-        Role role = new Role();
-        role.setRank(rank);
-        role.setName(name);
-
+    public String modacteur( @ModelAttribute Role role,@ModelAttribute("film")Long film_id,@ModelAttribute("personne")Long personne_id){
+        role.setFilm(filmDao.findById(film_id).get());
+        role.setPersonne(personneDao.findById(personne_id).get());
         RoleDao.save(role);
-        return "redirect:/acteur/";
+        return "redirect:/Role/";
     }
 //    @GetMapping("/modification")
 //    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")String naissance,@ModelAttribute("photoPath")String photoPath){

@@ -27,6 +27,7 @@ public class Genre {
     public void setName(String name) {
         this.name = name;
     }
+
     @ManyToMany(mappedBy = "lesGenres")
     public List<Film> getFilmGenre() { return filmGenre; }
     public void setFilmGenre(List<Film> filmGenre) { this.filmGenre = filmGenre; }

@@ -25,6 +25,16 @@
     <input hidden name="id" th:value="${genree.getId()}" type="text" />
     <input type="submit" value="Suprimer">
 </form>
+<form action="#" th:action="'/Genre/delie/'+${genree.getId()}"  method="get">
+    <p>film :
+        <select name="film">
+            <option th:each="film : ${genree.getFilmGenre()}" th:value="${film.getId()}" th:text="${film.getTitle()}">
+        </select>
+
+        <input type="submit">
+    </p>
+
+</form>
 
 <div th:replace="fragment/footer.html::footer"/>
 </body>

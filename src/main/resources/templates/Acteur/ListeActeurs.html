@@ -6,13 +6,14 @@
 <a th:each="acteur:${acteurs}"th:href="'/acteur/details/'+${acteur.id}">
     <li th:text="${acteur.nom}"></li>
 </a>
-<form  method="post" action="/acteur/creation" enctype="multipart/form-data">
+
+<form  method="post" action="/acteur/creation" th:object="${newacteur}" enctype="multipart/form-data">
     <fieldset>
         <legend>Ajouter un acteur:</legend>
-        <label  for="1">nom</label><input id="1" type="text" name="nom">
-        <label for="2">prenom</label><input id="2" type="text" name="prenom">
-        <label for="3">naissance</label><input id="3" type="date" name="naissance">
-        <input type="file" name="file">
+        <p>nom<input th:type="text" th:field="*{nom}"></p>
+        <p>prenom<input th:type="text" th:field="*{prenom}"></p>
+        <p>date de naissance<input type="date" name="naissanceee"></p>
+        <p>image : <input type="file" name="file"></p>
         <input type="submit">
     </fieldset>
 </form>

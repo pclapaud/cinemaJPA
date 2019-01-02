@@ -22,7 +22,7 @@
     <tr><td colspan="3">Les acteurs</td></tr>
     <tr><td colspan="3">
 
-    <a th:each="role:${roles}"th:href="'/detailActeur/'+${role.personne.getId()}">
+    <a th:each="role:${film.getLesRoles()}"th:href="'/detailActeur/'+${role.personne.getId()}">
 
 <ul>
     <img width="100px" HEIGHT="100px" th:src="'/images/personnes/'+${role.getPersonne().getPhotoPath()}">

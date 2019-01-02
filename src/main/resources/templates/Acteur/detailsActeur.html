@@ -31,13 +31,16 @@
 </tr>
 
 </table>
-<form method="get" action="/acteur/modification">
-    <input hidden type="text" name="id" th:value="${Personne.id}">
-    <label  for="1"></label><input th:value="${Personne.getNom()}" id="1" type="text" name="nom">
-    <label  for="2"></label><input th:value="${Personne.getPrenom()}" id="2" type="text" name="prenom">
-    <label  for="3"></label><input th:value="${Personne.getNaissance()}" id="3" type="date" name="naissance">
-    <input type="submit" value="Modifier">
-</form>
+    <form  method="post" action="/acteur/modification" th:object="${Personne}" enctype="multipart/form-data">
+        <fieldset>
+            <legend>modifier un acteur:</legend>
+            <p>nom<input th:type="text" th:field="*{nom}"></p>
+            <p>prenom<input th:type="text" th:field="*{prenom}"></p>
+            <p>date de naissance<input type="date" name="naissanceee" th:value="${Personne.getNaissance()}"></p>
+            <p>image : <input type="file" name="file"></p>
+            <input type="submit">
+        </fieldset>
+    </form>
 <form method="get" action="/acteur/suprimer">
     <input hidden type="text" name="id" th:value="${Personne.id}">
     <input type="submit" value="Suprimer">

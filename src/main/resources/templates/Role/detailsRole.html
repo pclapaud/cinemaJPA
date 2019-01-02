@@ -8,23 +8,26 @@
 <body>
 <nav th:replace="fragment/header.html :: menu"></nav>
 <table border="1px" style="width:70%">
-    <tr ><td colspan="2" th:text="'role : '+${role.getName()}+${role.getRank()}"></td></tr>
-
-
-
+    <tr ><td colspan="2" th:text="'role : '+${role.getName()}+'son rang : '+${role.getRank()}"></td></tr>
 
 </table>
-<!--<form method="get" action="/acteur/modification">-->
-    <!--<input hidden type="text" name="id" th:value="${Personne.id}">-->
-    <!--<label  for="1"></label><input th:value="${Personne.getNom()}" id="1" type="text" name="nom">-->
-    <!--<label  for="2"></label><input th:value="${Personne.getPrenom()}" id="2" type="text" name="prenom">-->
-    <!--<label  for="3"></label><input th:value="${Personne.getNaissance()}" id="3" type="number" name="naissance">-->
-    <!--<input type="submit" value="Modifier">-->
-<!--</form>-->
-<!--<form method="get" action="/acteur/suprimer">-->
-    <!--<input hidden type="text" name="id" th:value="${Personne.id}">-->
-    <!--<input type="submit" value="Suprimer">-->
-<!--</form>-->
+<form action="#" th:action="@{/role/creation}" th:object="${role}" method="post">
+    <p>film :
+        <select name="film">
+            <option th:each="film : ${films}" th:value="${film.getId()}" th:text="${film.getTitle()}">
+        </select>
+    </p>
+    <p>person :
+        <select name="personne">
+            <option th:each="person : ${personnes}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+        </select>
+    </p>
+    <p>rank : <input th:field="*{rank}" type="number" /></p>
+    <p>nom role : <input  th:field="*{name}" type="text" /></p>
+
+    <input type="submit" value="Valider" />
+</form>
+
 
 <div th:replace="fragment/footer.html::footer"/>
 </body>

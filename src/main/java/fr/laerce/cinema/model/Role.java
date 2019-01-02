@@ -17,7 +17,7 @@ public class Role {
 
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -59,14 +59,6 @@ public class Role {
         this.name = name;
     }
 
-
-
-
-
-
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,13 +66,13 @@ public class Role {
         Role role = (Role) o;
         return getId() == role.getId() &&
                 Objects.equals(getPersonne(), role.getPersonne()) &&
+                Objects.equals(getName(), role.getName()) &&
                 Objects.equals(getFilm(), role.getFilm()) &&
-                Objects.equals(getRank(), role.getRank()) &&
-                Objects.equals(getName(), role.getName());
+                Objects.equals(getRank(), role.getRank());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPersonne(), getFilm(), getRank(), getName());
+        return Objects.hash(getId(), getPersonne(), getName(), getFilm(), getRank());
     }
 }

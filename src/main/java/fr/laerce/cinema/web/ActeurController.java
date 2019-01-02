@@ -3,6 +3,7 @@ package fr.laerce.cinema.web;
 import fr.laerce.cinema.dao.FilmDao;
 import fr.laerce.cinema.dao.PersonneDao;
 import fr.laerce.cinema.model.Personne;
+import fr.laerce.cinema.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ public class ActeurController {
     @GetMapping("/")
     public String main3(Model model){
         model.addAttribute("acteurs",personneDao.findAll());
+        model.addAttribute("newacteur",new Personne());
         return "acteur/ListeActeurs";
     }
 
@@ -43,22 +45,22 @@ public class ActeurController {
         return "acteur/detailsActeur";
     }
     @PostMapping("/creation")
-    public String modacteur(@RequestParam("file") MultipartFile file, @ModelAttribute("nom")String nom, @ModelAttribute("prenom")String prenom, @ModelAttribute("naissance")String naissance){
-        Personne person = new Personne();
-        person.setNom(nom);
-        person.setPrenom(prenom);
+    public String modacteur(@ModelAttribute Personne person,@RequestParam("file") MultipartFile file, @ModelAttribute("naissanceee")String naissance){
+
         person.setNaissance(LocalDate.parse(naissance));
         String fileName=ImageMana.ajouteImage("p","personnes",file);
         person.setPhotoPath(fileName);
         personneDao.save(person);
         return "redirect:/acteur/";
     }
-    @GetMapping("/modification")
-    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")String naissance,@ModelAttribute("photoPath")String photoPath){
+    @PostMapping("/modification")
+    public String supacteur(@ModelAttribute("id")Long id,@ModelAttribute("nom")String nom,@ModelAttribute("prenom")String prenom,@ModelAttribute("naissance")String naissance,@RequestParam("file") MultipartFile file){
         Personne person = personneDao.findById(id).get();
         person.setNom(nom);
         person.setPrenom(prenom);
         person.setNaissance(LocalDate.parse(naissance));
+        String fileName=ImageMana.ajouteImage("p","personnes",file);
+        person.setPhotoPath(fileName);
         personneDao.save(person);
         return "redirect:/acteur/details/"+id;
     }

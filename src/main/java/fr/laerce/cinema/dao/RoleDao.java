@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface RoleDao extends CrudRepository<Role, Long> {
 
-    List<Role> findAllByFilm_Id(Film film);
+
 }
