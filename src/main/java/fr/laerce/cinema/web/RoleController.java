@@ -3,21 +3,14 @@ package fr.laerce.cinema.web;
 import fr.laerce.cinema.dao.FilmDao;
 import fr.laerce.cinema.dao.PersonneDao;
 import fr.laerce.cinema.dao.RoleDao;
-import fr.laerce.cinema.model.Personne;
 import fr.laerce.cinema.model.Role;
-import fr.laerce.cinema.model.RoleId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import fr.laerce.cinema.service.MonImageManager;
-
 
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.time.LocalDate;
 
 
 @Controller
@@ -46,7 +39,7 @@ public class RoleController {
     }
     @PostMapping("/creation")
     public String modacteur( @ModelAttribute("film_id")long film_id, @ModelAttribute("person_id")long person_id, @ModelAttribute("rank")Integer rank, @ModelAttribute("name")String name){
-        Role role = new Role(personneDao.findById(person_id).get(),filmDao.findById(film_id).get());
+        Role role = new Role();
         role.setRank(rank);
         role.setName(name);
 

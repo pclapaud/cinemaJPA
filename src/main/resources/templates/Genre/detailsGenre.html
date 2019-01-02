@@ -22,7 +22,7 @@
 </form>
 
 <form method="get" action="/Genre/suprimer">
-    <input hidden th:field="*{id}" type="text" />
+    <input hidden name="id" th:value="${genree.getId()}" type="text" />
     <input type="submit" value="Suprimer">
 </form>
 

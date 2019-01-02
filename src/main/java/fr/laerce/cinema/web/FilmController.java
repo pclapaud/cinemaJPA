@@ -5,8 +5,6 @@ import fr.laerce.cinema.dao.PersonneDao;
 import fr.laerce.cinema.dao.RoleDao;
 import fr.laerce.cinema.model.Film;
 import fr.laerce.cinema.model.Personne;
-import fr.laerce.cinema.model.Role;
-import fr.laerce.cinema.model.RoleId;
 import fr.laerce.cinema.service.MonImageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/film")

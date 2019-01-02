@@ -20,7 +20,7 @@ public class Film {
     private List<Genre> lesGenres;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -73,22 +73,27 @@ public class Film {
     public void setDirector(Personne realisateur) {
         this.director = realisateur;
     }
-    @OneToMany(mappedBy = "film")
+    //cascade=si on sup un film sup les roles, orphan si un role n'a pas de film il est sup
+    @OneToMany(mappedBy = "film",cascade = CascadeType.ALL,orphanRemoval = true)
     public List<Role> getLesRoles() {
         return lesRoles;
     }
     public void setLesRoles(List<Role> lesroles) {
         this.lesRoles = lesroles;
     }
-    @OneToMany(mappedBy = "film_id")
+    @OneToMany(mappedBy = "film_id",cascade = CascadeType.ALL,orphanRemoval = true)
     public List<revue> getLesRevues() {
         return lesRevues;
     }
     public void setLesRevues(List<revue> lesRevues) {
         this.lesRevues = lesRevues;
     }
-
-    @ManyToMany(mappedBy = "filmGenre")
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(
+            name = "film_genre",
+            joinColumns = {@JoinColumn(name = "film_id")},
+            inverseJoinColumns = { @JoinColumn(name = "genre_id")}
+            )
     public List<Genre> getLesGenres() { return lesGenres; }
     public void setLesGenres(List<Genre> genre) {
         this.lesGenres = genre;

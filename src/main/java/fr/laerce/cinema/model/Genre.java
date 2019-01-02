@@ -27,13 +27,7 @@ public class Genre {
     public void setName(String name) {
         this.name = name;
     }
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "film_genre",
-            joinColumns = {@JoinColumn(name = "genre_id")},
-            inverseJoinColumns = { @JoinColumn(name = "film_id")}
-            )
+    @ManyToMany(mappedBy = "lesGenres")
     public List<Film> getFilmGenre() { return filmGenre; }
     public void setFilmGenre(List<Film> filmGenre) { this.filmGenre = filmGenre; }
 
