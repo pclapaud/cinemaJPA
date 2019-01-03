@@ -16,6 +16,11 @@
         <select name="realisateur">
             <option th:each="person : ${persons}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
         </select>
+    </p>
+    <p>Genres :
+        <select multiple name="genre">
+            <option th:each="genre : ${genres}" th:selected="${film.getLesRoles().contains(genre)}" th:value="${genre.getId()}" th:text="${genre.getName()}">
+        </select>
         </p>
     <input type="submit" value="Valider" />
 </form>

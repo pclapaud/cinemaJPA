@@ -62,16 +62,24 @@ public class GenreController {
     @GetMapping("/suprimer")
     public String supacteur(@ModelAttribute("id")Long id){
         Genre genre = genreDao.findById(id).get();
+        for (Film film:genre.getFilmGenre()
+             ) {
+            delie(id,film.getId());
+        }
         genreDao.deleteById(id);
         return "redirect:/Genre/";
     }
     @GetMapping("/delie/{id}")
-    public String delie(@ModelAttribute("id")Long id,@ModelAttribute("film")Long film_id){
+    public String delieage(@ModelAttribute("id")Long id,@ModelAttribute("film")Long film_id){
+        delie(id,film_id);
+        return "redirect:/Genre/";
+    }
+    public void delie(long id, long film_id){
         Genre genre = genreDao.findById(id).get();
         Film film = filmDao.findById(film_id).get();
         List<Genre> listActua = film.getLesGenres();
         listActua.remove(genre);
         film.setLesGenres(listActua);
-        return "redirect:/Genre/";
+        filmDao.save(film);
     }
 }

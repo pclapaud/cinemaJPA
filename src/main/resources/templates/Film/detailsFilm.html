@@ -49,13 +49,21 @@
     <p>titre : <input th:value="${film.getTitle()}" name="titre" type="text" /></p>
     <p>note : <input th:value="${film.getRating()}" name="note" type="number" /></p>
 
-    <p>sommaire : <input th:value="${film.getSummary()}"style="height:200px;" name="sommaire" type="text" /></p>
+    <p>sommaire : <input th:value="${film.getSummary()}"textarea rows="4" cols="50" name="sommaire" type="text" /></p>
     <p>Réalisateur :
         <select  name="realisateur">
 
             <option th:each="person : ${persons}" th:selected="${person.getId()==film.getDirector().getId()}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
 
-                </select>
+        </select>
+    </p>
+    <p>Genres :
+        <select multiple name="genre">
+
+            <option th:each="genre : ${genres}" th:selected="${film.getLesRoles().contains(genre)}" th:value="${genre.getId()}" th:text="${genre.getName()}">
+
+        </select>
+
     </p>
     <input type="submit" value="Modifier" />
 </form>
@@ -64,7 +72,18 @@
     <input hidden type="text" name="id" th:value="${film.id}">
     <input type="submit" value="Suprimer">
 </form>
+<form action="#" th:action="@{/film/nouveaurole}" th:object="${newrole}" method="post">
+    <input hidden name="id" th:value="${film.id}">
+    <p>person :
+        <select name="personne">
+            <option th:each="person : ${persons}" th:value="${person.getId()}" th:text="${person.getNom()+'    '+person.getPrenom()}">
+        </select>
+    </p>
+    <p>rank : <input th:field="*{rank}" type="number" /></p>
+    <p>nom role : <input  th:field="*{name}" type="text" /></p>
 
+    <input type="submit" value="Valider" />
+</form>
 <div th:replace="fragment/footer.html::footer"/>
 </body>
 </html>
