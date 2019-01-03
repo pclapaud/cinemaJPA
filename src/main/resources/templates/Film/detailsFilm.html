@@ -60,7 +60,7 @@
     <p>Genres :
         <select multiple name="genre">
 
-            <option th:each="genre : ${genres}" th:selected="${film.getLesRoles().contains(genre)}" th:value="${genre.getId()}" th:text="${genre.getName()}">
+            <option th:each="genre : ${genres}" th:selected="${film.getLesGenres().contains(genre)}" th:value="${genre.getId()}" th:text="${genre.getName()}">
 
         </select>
 

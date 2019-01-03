@@ -55,10 +55,10 @@ public class User {
     @Basic
     @Column(name = "password", nullable = true)
     public String getPassword() {
-        return givenname;
+        return password;
     }
-    public void setPassword(String imagePath) {
-        this.givenname = imagePath;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @OneToMany(mappedBy = "user_id")
